@@ -6,7 +6,7 @@ tags: Ruby on rails
 
 Back to school, back to school.
 
-The beginning of gSchool have been the most grueling learning experience I've had.
+The beginning of gSchool has been the most grueling learning experience I've had.
 I sit in front of a computer all day using all of my energy doing important stuff, like
 figuring out if some given year is a leap year, converting integers to roman numerals,
 counting beer bottles and grains on a chessboard, and keeping deaf grandma yelling as expected.
