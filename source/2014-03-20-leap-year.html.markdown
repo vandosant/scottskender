@@ -1,0 +1,15 @@
+---
+title: Leap year algorithm in ruby
+date: 2014-03-20 23:54 UTC
+tags:
+---
+
+I underestimated this algorithm and learned my lesson -- Ask for help sooner!
+
+  ```ruby
+    def leap?(year)
+      true unless year % 100 == 0 && year % 400 != 0 || year % 4 != 0
+    end
+  ```
+
+Next stop, prime numbers!
