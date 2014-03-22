@@ -1,7 +1,7 @@
 ---
 title: What day is it?
 date: 2014-03-20 14:11 UTC
-tags: Ruby on rails
+tags: Ruby on Rails
 ---
 
 Back to school, back to school.
