@@ -2,7 +2,7 @@ xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   xml.title "Scott Skender's Blog"
   xml.subtitle "A web development journey"
-  xml.id "http://blog.url.com/"
+  xml.id "http://http://scottskender.herokuapp.com//"
   xml.link "href" => "http://scottskender.herokuapp.com/"
   xml.link "href" => "http://scottskender.herokuapp.com/feed.xml", "rel" => "self"
   xml.updated blog.articles.first.date.to_time.iso8601
@@ -15,7 +15,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
       xml.id article.url
       xml.published article.date.to_time.iso8601
       xml.updated article.date.to_time.iso8601
-      xml.author { xml.name "Article Author" }
+      xml.author { xml.name "Scott Skender" }
       xml.summary article.summary, "type" => "html"
       xml.content article.body, "type" => "html"
     end
