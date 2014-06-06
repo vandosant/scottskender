@@ -1,7 +1,7 @@
 xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
-  xml.title "Scott Skender's Blog"
-  xml.subtitle "A web development journey"
+  xml.title "Bit Racketeering"
+  xml.subtitle "Journeying to disciplined programming"
   xml.id "http://http://scottskender.herokuapp.com//"
   xml.link "href" => "http://scottskender.herokuapp.com/"
   xml.link "href" => "http://scottskender.herokuapp.com/feed.xml", "rel" => "self"

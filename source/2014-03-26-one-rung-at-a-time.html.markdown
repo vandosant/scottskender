@@ -1,7 +1,7 @@
 ---
 title: Compartmentalized Learning
 date: 2014-03-26 14:05 UTC
-tags:
+tags: gSchool
 ---
 
 The lego analogy comes up a lot in our gSchool lectures and other programming conversations.
