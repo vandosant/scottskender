@@ -1,0 +1,92 @@
+@import "theme";
+@import "variables";
+
+.mural {
+  margin: 0;
+  display: block;
+  vertical-align: baseline;
+  position: relative;
+  width: 100%;
+  background-color: $background-color;
+  height: 880px;
+  padding: 10% 0;
+  .text {
+    display: block;
+    vertical-align: baseline;
+    position: relative;
+    font-size: 6em;
+    width: 860px;
+    margin: 0 auto;
+    padding: 0;
+    letter-spacing: 5px;
+    h2 {
+      margin: 0;
+      padding: 0;
+      text-rendering: optimizeLegibility;
+      text-transform: uppercase;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      top: 0;
+      color: #222222;
+    }
+    h2:nth-child(2) {
+      top: 1em;
+    }
+  }
+  .normal {
+    margin: 0;
+    padding: 0;
+    opacity: .5;
+    line-height: 3.3em;
+    list-style-type: none;
+    color: $copy-color;
+    display: inline-block;
+    font-size: 15px;
+    ol {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      z-index: 2;
+      li {
+        margin: 0;
+        padding: 0;
+        letter-spacing: 8px;
+      }
+    }
+  }
+  .middle {
+    @extend .normal;
+    vertical-align: top;
+    opacity: .3;
+    margin-left: 12em;
+  }
+  .right {
+    @extend .middle;
+    opacity: .2;
+    margin-left: 6em;
+  }
+}
+
+.projects {
+  color: $background-color;
+  background-color: $accent-color;
+  .panel {
+    font-size: 3em;
+  }
+}
+
+.contact {
+  color: $accent-color;
+  background-color: $copy-color;
+  height: 440px;
+  padding: 5% 0;
+  .panel {
+    font-size: 3em;
+  }
+}
+
+.blogroll {
+  color: $headline-color;
+  background-color: $link-color;
+}

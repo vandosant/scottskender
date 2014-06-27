@@ -4,6 +4,11 @@
 // Comment out this import if you are customizing you imports below
 @import "foundation";
 
+// Custom styling
+@import "root";
+@import "bourbon/bourbon";
+@import "variables";
+
 // ----------------------------------------
 // Import specific parts of Foundation by commenting the import "foundation"
 // and uncommenting what you want below. You must uncomment the following if customizing
@@ -50,9 +55,8 @@
 // @import "foundation/components/modules/mqueries";
 
 /* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
-@import url(http://fonts.googleapis.com/css?family=PT+Sans:700);
-
-@import url(http://fonts.googleapis.com/css?family=Lustria:400);
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=PT+Mono);
 
 pre.highlight {
   border: 1px solid #ccc;

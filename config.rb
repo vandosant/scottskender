@@ -15,7 +15,7 @@ require "zurb-foundation"
 ###
 
 activate :blog do |blog|
-  # blog.prefix = "blog"
+  blog.prefix = "blog"
   # blog.permalink = ":year/:month/:day/:title.html"
   # blog.sources = ":year-:month-:day-:title.html"
   # blog.taglink = "tags/:tag.html"
@@ -42,6 +42,7 @@ page "robots.txt", layout: false
 page "humans.txt", layout: false
 page "feed.xml", layout: false
 page "style.html", layout: "raw"
+page "index.html", layout: "root"
 
 
 #

@@ -1,17 +1,104 @@
 ---
-title: Welcome to Middleman Foundation
+title: Scott Skender
 pageable: true
 per_page: 10
 ---
-.row
-  .twelve.columns
-    - page_articles.each_with_index do |article, i|
+%section.mural
+  %section.text
+    %h2
+      scott
+    %h2
+      skender
+    %ol.normal
+      %li
+        Ruby
+      %li
+        RSpec
+      %li
+        Capybara
+      %li
+        Rails
+      %li
+        TDD
+      %li
+        Sinatra
+      %li
+        PostgreSQL
+      %li
+        ERB
+      %li
+        HAML
+    %ol.middle
+      %li
+        Conversions
+      %li
+        Optimization
+      %li
+        A/B Testing
+      %li
+        AdWords
+      %li
+        Retargeting
+      %li
+        Display
+      %li
+        Analytics
+    %ol.right
+      %li
+        JavaScript
+      %li
+        JQuery
+      %li
+        JSON
+      %li
+        UJS
+      %li
+        AJAX
+      %li
+        CSS
+      %li
+        SCSS
+      %li
+        Middleman
+      %li
+        HTML
+
+%section.mural.blogroll
+  .row
+    .twelve.columns
+      - page_articles.each_with_index do |article, i|
+        - break if i == 7
+        .panel
+          %h5
+            = link_to article.title, article
+            %span= article.date.strftime('%b %e')
+
+%section.mural.projects
+  .row
+    .twelve.columns
       .panel
-        %h3
-          = link_to article.title, article
-          %span= article.date.strftime('%b %e')
-        = find_and_preserve do
-          = article.summary
+        Projects
+      .panel
+        %a{href: "http://langua.herokuapp.com"}='Langua'
+        Learn Portuguese!
+        %a{href: "https://github.com/vandosant/language-app", style: "font-size:50%"}='(GitHub Repo)'
+      .panel
+        more to come, don't worry...
+
+%section.mural.contact
+  .row
+    .twelve.columns
+      .panel
+        Contact
+      %a{href: "https://twitter.com/scottskender"}
+        .panel
+          Twitter
+      %a{href: "https://github.com/vandosant"}
+        .panel
+          GitHub
+      %a{href: "https://www.linkedin.com/in/scottskender"}
+        .panel
+          LinkedIn
 
 .row
   .six.columns
