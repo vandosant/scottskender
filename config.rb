@@ -1,7 +1,5 @@
 # New Relic configuration
-configure :production do
-  require 'newrelic_rpm'
-end
+# require 'newrelic_rpm'
 
 ###
 # Compass
