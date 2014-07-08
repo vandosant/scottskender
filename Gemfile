@@ -17,3 +17,4 @@ gem "redcarpet", "~>3.0.0"
 gem "pygments.rb", "~> 0.5.4"
 
 gem "bourbon", "~> 3.2.1"
+gem "newrelic_rpm", "~> 3.9.0.229"
