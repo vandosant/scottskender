@@ -20,7 +20,7 @@
     padding: 0;
     letter-spacing: 5px;
     h2 {
-      margin: 0;
+      margin: -.1em .2em;
       padding: 0;
       text-rendering: optimizeLegibility;
       text-transform: uppercase;
@@ -28,6 +28,7 @@
       width: 100%;
       z-index: 1;
       top: 0;
+      opacity: .75;
       color: #222222;
     }
     h2:nth-child(2) {
@@ -44,13 +45,8 @@
     display: inline-block;
     font-size: 15px;
     ol {
-      margin: 0;
-      padding: 0;
       position: relative;
-      z-index: 2;
       li {
-        margin: 0;
-        padding: 0;
         letter-spacing: 8px;
       }
     }
@@ -65,6 +61,30 @@
     @extend .middle;
     opacity: .2;
     margin-left: 6em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mural {
+    height: 100%;
+    .text {
+      width: 100%;
+      font-size: 4em;
+      h2 {
+        padding: 0 .5em;
+        margin: -.1em 0;
+      }
+    }
+    .normal {
+      margin: 0 5em;
+      font-size: 10px;
+    }
+    .middle {
+      margin-left: 4em;
+    }
+    .right {
+      margin-left: 2em;
+    }
   }
 }
 
