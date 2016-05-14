@@ -1,6 +1,6 @@
-var express = require('express')
-var app = express()
-
+let express = require('express')
+let app = express()
+let config = require('./config/config.js')
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`), function(err) {
     if (err) {
@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   }
 })
 
-const port = 8000
+const port = config.port
 app.listen(port, (err) => {
   if (err) {
     console.log('Err', err)

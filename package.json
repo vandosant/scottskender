@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vandosant/scottskender#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "lodash": "^4.12.0"
   }
 }
