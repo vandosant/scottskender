@@ -1,6 +1,8 @@
 let express = require('express')
 let app = express()
 let config = require('./config/config.js')
+
+app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`), function(err) {
     if (err) {
