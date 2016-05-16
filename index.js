@@ -8,10 +8,13 @@ let api = require('./api/api.js')
 let mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/test')
 
-let PostSchema = {
+let PostSchema = new mongoose.Schema({
   title: String,
-  body: String
-}
+  body: {
+    type: String,
+    required: true
+  }
+})
 
 let Post = mongoose.model('posts', PostSchema)
 Post.create(
