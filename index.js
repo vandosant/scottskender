@@ -8,13 +8,17 @@ let api = require('./api/api.js')
 let mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/test')
 
-let Post = mongoose.model('Post', {title: String})
-let firstPost = new Post({title: 'Another dev blurb'})
-firstPost.save(function (err) {
-  if (err) {
-    console.log(err)
-  }
-})
+let PostSchema = {
+  title: String,
+  body: String
+}
+
+let Post = mongoose.model('posts', PostSchema)
+Post.create(
+  {title: 'Another dev blurb', body: 'I am telling you some opinions here'}
+).then(function(err, post) {
+  console.log(err, post);
+});
 
 // MIDDLEWARE
 app.use(express.static('public'))
