@@ -14,5 +14,27 @@ describe('API', function() {
 	done()
       })
   })
+  it('should get all categories', function(done) {
+    request(app)
+      .get('/api/categories')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.body).to.be.an('array')
+        done()
+      })
+  })
 
+  it('should get all users', function(done) {
+    request(app)
+      .get('/api/users')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.body).to.be.an('array')
+	done()
+      })
+  })
 })
