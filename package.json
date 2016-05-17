@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/indexSpec.js"
+    "test": "mocha --require test/helpers/setup.js"
   },
   "repository": {
     "type": "git",
