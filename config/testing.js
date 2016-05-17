@@ -1,5 +1,5 @@
 let config = {
-  port: 8889
+  port: 8082
 }
 
 module.exports = config
