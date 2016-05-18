@@ -23,7 +23,6 @@ app.get('/', (req, res) => {
   }
 })
 
-
 const port = config.port
 app.listen(port, (err) => {
   if (err) {

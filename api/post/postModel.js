@@ -1,18 +1,22 @@
 let mongoose = require('mongoose')
 
 let PostSchema = new mongoose.Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   body: {
     type: String,
     required: true
-  }
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId
+  }]
 })
 
 let PostModel = mongoose.model('posts', PostSchema)
-PostModel.create(
-  {title: 'Another dev blurb', body: 'I am telling you some opinions here'}
-).then(function(err, post) {
-  console.log(err, post);
-});
 
 module.exports = PostModel
