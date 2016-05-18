@@ -1,10 +1,10 @@
-let express = require('express')
-let bodyParser = require('body-parser')
-let app = express()
-let config = require('./config/config.js')
+const express = require('express')
+const bodyParser = require('body-parser')
+const config = require('./config/config.js')
 let api = require('./api/api.js')
+let app = express()
 
-let mongoose = require('mongoose')
+const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/test')
 
 // MIDDLEWARE
