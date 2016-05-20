@@ -40,11 +40,36 @@ describe('API', function() {
 	.send({title: "don't let your silly dreams", content: 'fall in between the crack of the bed and the wall'})
 	.set('Accept', 'application/json')
 	.expect('Content-Type', /json/)
-	.expect(200)
+	.expect(201)
 	.end(function(err, res) {
           expect(res.body).to.be.an('object');
 	  expect(res.body.title).to.equal("don't let your silly dreams");
 	  done();
+	});
+    });
+    it('should update a post', function(done) {
+      request(app)
+	.post('/api/posts')
+	.send({title: "i should blame you now, but i never could somehow",
+		content: "for a miner's wife you weren't cut out to be"})
+	.set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(201)
+	.end(function(err, res) {
+          const postId = res.body._id;
+	  request(app)
+	    .put(`/api/posts/${postId}`)
+	    .send({content: "a miner's wife you weren't cut out to be"})
+            .set('Accept', 'application/json')
+	    .expect('Content-Type', /json/)
+	    .expect(200)
+	    .end(function(err, res) {
+	      if (err) {console.log(err)};
+              expect(res.body).to.be.an('object');
+              expect(res.body.content).to.equal("a miner's wife you weren't cut out to be");
+	      expect(res.body).to.include.key('title');
+	      done();
+	    });
 	});
     });
   });

@@ -25,6 +25,20 @@ router.route('/:id')
         console.error(err);
       }
       res.json(post)
-    })
+    });
   })
+  .put(function(req, res) {
+    postModel.findById(req.params.id)
+      .then(function(post) {
+	const postUpdates = Object.assign(post, req.body)
+        post.update(postUpdates)
+	  .then(function() {
+            res.json(postUpdates);
+	  }, function(err) {
+            console.error('Err updating post', err);
+	  });
+      }, function(err) {
+        console.error('Err finding post to update', err);
+      });
+  });
 module.exports = router
