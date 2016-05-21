@@ -34,6 +34,16 @@ describe('API', function() {
           })
         });
     });
+    it('should return a not found error on get one post', function(done) {
+      request(app)
+	.get('/api/posts/hexadic')
+	.set('Accept', 'application/json')
+	.expect(404)
+	.end(function(err, res) {
+          expect(res.text).to.equal('Post not found');
+	  done();
+	})
+    });
     it('should create a post', function(done) {
       request(app)
 	.post('/api/posts')

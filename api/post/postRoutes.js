@@ -19,12 +19,13 @@ router.route('/')
   })
 
 router.route('/:id')
-  .get(function(req, res) {
+  .get(function(req, res, next) {
     postModel.findOne({_id: req.params.id}, function(err, post) {
       if (err) {
-        console.error(err);
+	next(new Error('Post not found'));
+      } else {
+        res.json(post)
       }
-      res.json(post)
     });
   })
   .put(function(req, res) {

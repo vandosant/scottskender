@@ -23,6 +23,12 @@ app.get('/', (req, res) => {
   }
 })
 
+app.use(function (err, req, res, next) {
+  if (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 const port = config.port
 app.listen(port, (err) => {
   if (err) {
