@@ -9,7 +9,7 @@ module.exports = {
     publicPath: '/public/'
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.jsx']
   },
   stats: {
     colors: true,
@@ -18,7 +18,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
 	loader: 'babel-loader',
 	include: path.join(__dirname, '/js')
       }
