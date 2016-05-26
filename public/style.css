@@ -56,3 +56,15 @@ html {
   margin-left: 6em;
   opacity: .2;
 }
+
+/* Component Specific */
+.row {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.panel {
+  padding: 20px;
+  margin-bottom: 22px;
+  background: #efefef;
+}

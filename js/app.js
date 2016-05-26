@@ -10,7 +10,9 @@ Post.load()
     return (
       <div>
         <Title title='musings' color='#bf8415' />
-	{posts.map((post) => { return <div>{post.title}</div> } )}
+	{posts.map((post) => { return (
+				<div className='panel'>{post.title}</div> )
+			     } )}
       </div>
     )
   }
