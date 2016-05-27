@@ -8,6 +8,14 @@ router.route('/')
     .then(function(doc) {
       res.json(doc);
     });
+  })
+  .post(function(req, res, next) {
+    userModel.create(req.body)
+    .then(function(user) {
+      res.json(user);
+    }, function(err) {
+      console.log(err);
+      next(err);
+    });
   });
-
 module.exports = router;

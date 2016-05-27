@@ -18,12 +18,17 @@ exports.create = function (req, res, next) {
 };
 
 exports.getOne = function (req, res, next) {
-  postModel.findOne({_id: req.params.id}, function(err, post) {
-    if (err || !post) {
+  postModel.findById(req.params.id)
+  .populate('author')
+  .exec()
+  .then(function(post) {
+    if (!post) {
       next(new Error('Post not found'));
     } else {
       res.json(post)
     }
+  }, function(err) {
+    next(new Error('Post not found'));
   });
 };
 

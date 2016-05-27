@@ -1,8 +1,15 @@
 let app = require('../index')
 let request = require('supertest')
 let expect = require('chai').expect
+let mongoose = require('mongoose')
 
 describe('API', function() {
+  before(function(done) {
+    for (var i in mongoose.connection.collections) {
+      mongoose.connection.collections[i].remove(function() {});
+    }
+    return done();
+  });
   describe('POSTS', function() {
     it('should get all posts', function(done) {
       request(app)
@@ -40,6 +47,7 @@ describe('API', function() {
 	.set('Accept', 'application/json')
 	.expect(404)
 	.end(function(err, res) {
+	  console.log(err)
           expect(res.text).to.equal('Post not found');
 	  done();
 	})
@@ -55,6 +63,50 @@ describe('API', function() {
           expect(res.body).to.be.an('object');
 	  expect(res.body.title).to.equal("don't let your silly dreams");
 	  done();
+	});
+    });
+    it('should have an author', function(done) {
+      request(app)
+	.post('/api/users')
+	.send({username: "samothrace"})
+	.set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(200)
+	.end(function(err, res) {
+          if (err) {
+            console.log(err);
+	  }
+	  expect(err).to.be.null;
+	  const user = res.body;
+	  const userId = user._id;
+	  request(app)
+	    .post('/api/posts')
+	    .send({author: userId, title: 'cruel awake', content: 'LORDS THEN FALL, TAKINGS, LEFT TO FAIL, BROKEN PRAISE'})
+	    .set('Accept', 'application/json')
+	    .expect('Content-Type', /json/)
+	    .expect(200)
+	    .end(function(err, res) {
+	      if (err) {
+                console.log(err);
+	      }
+	      expect(err).to.be.null;
+	      const postId = res.body._id;
+              expect(res.body.author).to.be.equal(userId);
+	      request(app)
+                .get(`/api/posts/${postId}`)
+		.set('Accept', 'application/json')
+		.expect('Content-Type', /json/)
+		.expect(200)
+		.end(function(err, res) {
+                  if (err) {
+                    console.log(err)
+		  }
+		  expect(err).to.be.null;
+		  expect(res.body.author).to.be.an('object');
+		  expect(res.body.author._id).to.equal(userId);
+		  done();
+		});
+	    })
 	});
     });
     it('should update a post', function(done) {
@@ -126,15 +178,33 @@ describe('API', function() {
         done()
       })
   })
-  it('should get all users', function(done) {
-    request(app)
-      .get('/api/users')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end(function(err, res) {
-        expect(res.body).to.be.an('array')
-	done()
-      })
+  describe('USERS', function() {
+    it('should get all users', function(done) {
+      request(app)
+        .get('/api/users')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.be.an('array')
+          done()
+        })
+    })
+    it('should create a user', function(done) {
+      request(app)
+	.post('/api/users')
+	.send({username: "Smokin' Willie"})
+	.set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(200)
+	.end(function(err, res) {
+          if (err) {
+            console.log(err)
+	  }
+	  expect(err).to.be.null
+	  expect(res.body.username).to.equal("Smokin' Willie")
+	  done()
+	})
+    })
   })
 })

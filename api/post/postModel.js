@@ -11,12 +11,13 @@ let PostSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
   },
   categories: [{
     type: mongoose.Schema.Types.ObjectId
   }]
 })
 
-let PostModel = mongoose.model('posts', PostSchema)
+let PostModel = mongoose.model('post', PostSchema)
 
 module.exports = PostModel
