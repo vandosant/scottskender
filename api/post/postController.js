@@ -19,7 +19,7 @@ exports.create = function (req, res, next) {
 
 exports.getOne = function (req, res, next) {
   postModel.findOne({_id: req.params.id}, function(err, post) {
-    if (err) {
+    if (err || !post) {
       next(new Error('Post not found'));
     } else {
       res.json(post)
@@ -42,4 +42,14 @@ exports.update = function (req, res, next) {
       console.error('Err finding post to update', err);
       next(err);
     });
+};
+
+exports.delete = function (req, res, next) {
+  postModel.remove({_id: req.params.id}, function(err, removed) {
+    if (err) {
+      console.log(err);
+      next(err);
+    }
+    res.json(removed);
+  })
 };
