@@ -5,7 +5,6 @@ const Title = require('./Title')
 
 Post.load()
 .then(function(posts) {
-  console.log(posts)
   const App = () => {
     return (
       <div>
