@@ -7,6 +7,10 @@ let app = express()
 const mongoose = require('mongoose')
 mongoose.connect(config.db.url)
 
+if (config.seed) {
+  require('./util/seed')
+}
+
 // MIDDLEWARE
 app.use(express.static('public'))
 // api specific
