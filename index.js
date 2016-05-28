@@ -1,7 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const config = require('./config/config.js')
-let api = require('./api/api.js')
+const config = require('./config/config')
+const api = require('./api/api')
+const auth = require('./auth/routes')
 let app = express()
 
 require('mongoose').connect(config.db.url)
@@ -17,6 +18,7 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', api)
+app.use('/auth', auth)
 
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`), function(err) {

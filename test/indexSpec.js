@@ -207,4 +207,37 @@ describe('API', function() {
 	})
     })
   })
+  describe('AUTH', function(done) {
+    it('requires a username and password', function(done) {
+      request(app)
+	.post('/auth/signin')
+	.send({})
+	.expect(400)
+	.end(function(err, res) {
+          request(app)
+            .post('/auth/signin')
+            .send({username: "Smokin' Don"})
+            .expect(400)
+            .end(function(err, res) {
+              request(app)
+        	.post('/auth/signin')
+        	.send({password: '1234'})
+        	.expect(400)
+        	.end(function(err, res) {
+                  done()
+		})
+	    })
+      	})
+    })
+    it('requires a valid username', function(done) {
+      request(app)
+	.post('/auth/signin')
+	.send({username: 'Bo Diddley', password: '1234'})
+	.expect(401)
+	.end(function(err, res) {
+	  expect(res.text).to.equal('Invalid username or password');
+	  done()
+	})
+    });
+  })
 })
