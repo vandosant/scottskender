@@ -4,8 +4,7 @@ const config = require('./config/config.js')
 let api = require('./api/api.js')
 let app = express()
 
-const mongoose = require('mongoose')
-mongoose.connect(config.db.url)
+require('mongoose').connect(config.db.url)
 
 if (config.seed) {
   require('./util/seed')
