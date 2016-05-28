@@ -10,7 +10,7 @@ Post.load()
       <div>
         <Title title='musings' color='#bf8415' />
 	{posts.map((post) => { return (
-				<div className='panel'>{post.title}</div> )
+				<div key={post._id} className='panel'>{post.title}</div> )
 			     } )}
       </div>
     )
