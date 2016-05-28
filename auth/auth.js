@@ -13,7 +13,22 @@ exports.verify = function() {
       .then(function(user) {
         if (!user) {
           res.status(401).send('Invalid username or password');
+	} else {
+	  user.authenticate.call(user, password)
+	    .then(function(isMatched) {
+              if (!isMatched) {
+                res.status(401).send('Invalid username or password');
+	      } else {
+                req.user = user;
+		next();
+	      }
+	    })
+	    .catch(function(err) {
+              next(err);
+	    })
 	}
-      })
+      }, function(err) {
+        next(err);
+      });
   };
 };

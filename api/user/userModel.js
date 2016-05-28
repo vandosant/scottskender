@@ -45,6 +45,18 @@ UserSchema.methods = {
 	}
       })
     })
+  },
+  authenticate(password) {
+    const user = this
+    return new Promise(function(resolve, reject) {
+      bcrypt.compare(password, user.password, function(err, isMatched) {
+        if (err) {
+          reject(err);
+	} else {
+          resolve(isMatched);
+	}
+      })
+    })
   }
 }
 

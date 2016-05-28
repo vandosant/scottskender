@@ -227,7 +227,7 @@ describe('API', function() {
 	.end(function(err, res) {
           request(app)
             .post('/auth/signin')
-            .send({username: "Smokin' Don"})
+            .send({username: ""})
             .expect(400)
             .end(function(err, res) {
               request(app)
@@ -248,6 +248,28 @@ describe('API', function() {
 	.end(function(err, res) {
 	  expect(res.text).to.equal('Invalid username or password');
 	  done()
+	})
+    });
+    it('requires a valid password', function(done) {
+      request(app)
+	.post('/api/users')
+	.send({username: 'rangda', password: 'formerly-extinct'})
+	.set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(200)
+	.end(function(err, res) {
+          expect(err).to.be.null
+	  request(app)
+	    .post('/auth/signin')
+	    .send({username: 'rangda', password: 'formerly-extinct'})
+	    .set('Accept', 'application/json')
+	    .expect('Content-Type', /json/)
+	    .expect(200)
+	    .end(function(err, res) {
+              expect(err).to.be.null
+	      expect(res.body.username).to.equal('rangda')
+	      done()
+	    })
 	})
     });
   })
