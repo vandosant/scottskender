@@ -12,6 +12,7 @@ if (config.seed) {
 }
 
 // MIDDLEWARE
+// client specific
 app.use(express.static('public'))
 // api specific
 app.use(bodyParser.urlencoded({ extended: true }))
