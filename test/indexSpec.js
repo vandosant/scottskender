@@ -68,7 +68,7 @@ describe('API', function() {
     it('should have an author', function(done) {
       request(app)
 	.post('/api/users')
-	.send({username: "samothrace"})
+	.send({username: "samothrace", password: "12345678"})
 	.set('Accept', 'application/json')
 	.expect('Content-Type', /json/)
 	.expect(200)
@@ -193,19 +193,30 @@ describe('API', function() {
     it('should create a user', function(done) {
       request(app)
 	.post('/api/users')
-	.send({username: "Smokin' Willie"})
+	.send({username: "Smokin' Willie", password: "12345678"})
 	.set('Accept', 'application/json')
 	.expect('Content-Type', /json/)
 	.expect(200)
 	.end(function(err, res) {
-          if (err) {
-            console.log(err)
-	  }
 	  expect(err).to.be.null
 	  expect(res.body.username).to.equal("Smokin' Willie")
 	  done()
 	})
     })
+    it('stores a hashed password', function(done) {
+      request(app)
+	.post('/api/users')
+	.send({username: "Smokin' Joe", password: '1234'})
+        .set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(200)
+	.end(function(err, res) {
+          expect(err).to.be.null
+	  expect(res.body.password).to.be.a('string')
+	  expect(res.body.password).not.to.equal('1234')
+	  done()
+	});
+    });
   })
   describe('AUTH', function(done) {
     it('requires a username and password', function(done) {

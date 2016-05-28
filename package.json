@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/vandosant/scottskender#readme",
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "lodash": "^4.12.0",
