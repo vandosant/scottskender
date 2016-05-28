@@ -5,7 +5,7 @@ let api = require('./api/api.js')
 let app = express()
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/test')
+mongoose.connect(config.db.url)
 
 // MIDDLEWARE
 app.use(express.static('public'))
