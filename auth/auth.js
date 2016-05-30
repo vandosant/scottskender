@@ -1,4 +1,9 @@
+const jwt = require('jsonwebtoken');
 const User = require('../api/user/userModel');
+
+exports.signToken = function(id) {
+  return jwt.sign({_id: id}, 'secret');
+}
 
 exports.verify = function() {
   return function(req, res, next) {

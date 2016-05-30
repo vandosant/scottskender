@@ -272,5 +272,27 @@ describe('API', function() {
 	    })
 	})
     });
+    it('returns a token for the client to consume', function(done) {
+      request(app)
+	.post('/api/users')
+	.send({username: 'Sir Richard Bishop', password: 'intermezzo'})
+	.set('Accept', 'application/json')
+	.expect('Content-Type', /json/)
+	.expect(200)
+	.end(function(err, res) {
+          expect(err).to.be.null
+	  request(app)
+	    .post('/auth/signin')
+	    .send({username: 'Sir Richard Bishop', password: 'intermezzo'})
+	    .set('Accept', 'application/json')
+	    .expect('Content-Type', /json/)
+	    .expect(200)
+	    .end(function(err, res) {
+              expect(err).to.be.null
+	      expect(res.body.token).to.be.a('string')
+	      done()
+	    })
+	})
+    });
   })
 })
