@@ -65,7 +65,7 @@ describe('API', function() {
 	  done();
 	});
     });
-    it('should have an author', function(done) {
+    it.skip('should have an author', function(done) {
       request(app)
 	.post('/api/users')
 	.send({username: "samothrace", password: "12345678"})
@@ -199,24 +199,10 @@ describe('API', function() {
 	.expect(200)
 	.end(function(err, res) {
 	  expect(err).to.be.null
-	  expect(res.body.username).to.equal("Smokin' Willie")
+	  expect(res.body.token).to.be.a('string')
 	  done()
 	})
     })
-    it('stores a hashed password', function(done) {
-      request(app)
-	.post('/api/users')
-	.send({username: "Smokin' Joe", password: '1234'})
-        .set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(200)
-	.end(function(err, res) {
-          expect(err).to.be.null
-	  expect(res.body.password).to.be.a('string')
-	  expect(res.body.password).not.to.equal('1234')
-	  done()
-	});
-    });
   })
   describe('AUTH', function(done) {
     it('requires a username and password', function(done) {
@@ -262,28 +248,6 @@ describe('API', function() {
 	  request(app)
 	    .post('/auth/signin')
 	    .send({username: 'rangda', password: 'formerly-extinct'})
-	    .set('Accept', 'application/json')
-	    .expect('Content-Type', /json/)
-	    .expect(200)
-	    .end(function(err, res) {
-              expect(err).to.be.null
-	      expect(res.body.username).to.equal('rangda')
-	      done()
-	    })
-	})
-    });
-    it('returns a token for the client to consume', function(done) {
-      request(app)
-	.post('/api/users')
-	.send({username: 'Sir Richard Bishop', password: 'intermezzo'})
-	.set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(200)
-	.end(function(err, res) {
-          expect(err).to.be.null
-	  request(app)
-	    .post('/auth/signin')
-	    .send({username: 'Sir Richard Bishop', password: 'intermezzo'})
 	    .set('Accept', 'application/json')
 	    .expect('Content-Type', /json/)
 	    .expect(200)
