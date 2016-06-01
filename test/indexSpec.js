@@ -250,7 +250,7 @@ describe('API', function() {
 	  done()
 	})
     });
-    it('requires a valid password', function(done) {
+    it('returns a token on signin', function(done) {
       request(app)
 	.post('/api/users')
 	.send({username: 'rangda', password: 'formerly-extinct'})
@@ -267,7 +267,9 @@ describe('API', function() {
 	    .expect(200)
 	    .end(function(err, res) {
               expect(err).to.be.null
-	      expect(res.body.username).to.equal('rangda')
+	      expect(res.body.username).to.be.undefined
+	      expect(res.body.password).to.be.undefined
+	      expect(res.body.token).to.be.a('string')
 	      done()
 	    })
 	})
