@@ -136,11 +136,11 @@ describe('API', function() {
 	});
     });
     it('requires auth to delete a post', function(done) {
-      let post = {title: 'Whip-por-will', content: `I got my window open in the southern cross hotel
+      createDocument(require('../api/post/postModel'), {title: 'Whip-por-will',
+        content: `I got my window open in the southern cross hotel
 it's been my longest night I can tell
 by the way I'm not surprised
-to see the desert cover over paradise`}
-      createDocument(require('../api/post/postModel'), post)
+to see the desert cover over paradise`})
       .then(function (post) {
 	request(app)
           .delete(`/api/posts/${post._id}`)
