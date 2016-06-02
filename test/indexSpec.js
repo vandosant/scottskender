@@ -148,37 +148,59 @@ to see the desert cover over paradise`})
 	  .expect(401, done)
       });
     });
-    it.skip('should delete a post', function(done) {
-      request(app)
-	.post('/api/posts')
-	.send({title: "as soon as you're born they make you feel small",
-		content: "by giving you no time instead of it all"})
-	.set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(200)
-	.end(function(err, res) {
-          const postId = res.body._id;
-	  request(app)
-	    .delete(`/api/posts/${res.body._id}`)
-	    .set('Accept', 'application/json')
-	    .expect('Content-Type', /json/)
-	    .expect(200)
-	    .end(function(err, res) {
-	      expect(err).to.be.null;
-	      if (err) { console.log(err) }
-              expect(res.body).to.be.an('object');
-	      request(app)
-		.get(`/api/posts/${postId}`)
-		.set('Accept', 'application/json')
-		.expect('Content-Type', /json/)
-		.expect(404)
-		.end(function(err, res) {
-		  expect(err).not.to.be.null;
-                  expect(res.text).to.equal("Post not found");
-		  done();
-		});
-	    })
-	})
+    it('requires a valid token to delete a post', function (done) {
+      createDocument(require('../api/post/postModel'), {
+        title: 'The Ocean Nerves',
+        content: 'This place is trouble waiting, The light hangs so weakly on to the quiet, Drag myself in a long line'
+      })
+        .then(function (post) {
+          request(app)
+            .delete(`/api/posts/${post._id}`)
+            .set('Authorization', 'Bearer xyz')
+            .expect(401, done)
+        })
+    });
+    it('should delete a post', function (done) {
+      createDocument(require('../api/user/userModel'), {username: 'jim james', password: 'yim yames'})
+        .then(function (user) {
+          createDocument(require('../api/post/postModel'), {
+            title: "as soon as you're born they make you feel small",
+            content: "by giving you no time instead of it all",
+            author: user._id
+          })
+            .then(function (post) {
+              const postId = post._id;
+              request(app)
+                .post('/auth/signin')
+                .send({username: 'jim james', password: 'yim yames'})
+                .expect(200)
+                .end(function (err, res) {
+                  request(app)
+                    .delete(`/api/posts/${postId}`)
+                    .set('Accept', 'application/json')
+                    .set('Authorization', `Bearer ${res.body.token}`)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function (err, res) {
+                      expect(err).to.be.null;
+                      if (err) {
+                        console.log(err)
+                      }
+                      expect(res.body).to.be.an('object');
+                      request(app)
+                        .get(`/api/posts/${postId}`)
+                        .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
+                        .expect(404)
+                        .end(function (err, res) {
+                          expect(err).not.to.be.null;
+                          expect(res.text).to.equal("Post not found");
+                          done();
+                        });
+                    })
+                })
+            })
+        })
     });
   });
   it('should get all categories', function(done) {

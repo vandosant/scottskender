@@ -43,6 +43,15 @@ exports.decodeToken = function() {
   return function(req, res, next) {
     if (!req.headers.authorization) {
       res.status(401).send('Unauthorized')
+      return;
     };
+
+    jwt.verify(req.headers.authorization.split(" ")[1], 'secret', function(err, decoded) {
+      if (err || !decoded) {
+        res.status(401).send('Unauthorized');
+	return
+      }
+      next()
+    })
   };
 };
