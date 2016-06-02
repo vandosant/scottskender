@@ -2,6 +2,7 @@ let app = require('../index')
 let request = require('supertest')
 let expect = require('chai').expect
 let mongoose = require('mongoose')
+const createDocument = require('./helpers/objectCreation').createDocument
 
 describe('API', function() {
   before(function(done) {
@@ -135,17 +136,6 @@ describe('API', function() {
 	});
     });
     it('requires auth to delete a post', function(done) {
-      const createDocument = function(model, data) {
-        return new Promise(function(resolve, reject) {
-          new model(data).save(function(err, doc) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(doc);
-            }
-          });
-        });
-      };
       let post = {title: 'Whip-por-will', content: `I got my window open in the southern cross hotel
 it's been my longest night I can tell
 by the way I'm not surprised
