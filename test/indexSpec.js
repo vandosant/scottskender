@@ -134,7 +134,31 @@ describe('API', function() {
 	    });
 	});
     });
-    it('should delete a post', function(done) {
+    it('requires auth to delete a post', function(done) {
+      const createDocument = function(model, data) {
+        return new Promise(function(resolve, reject) {
+          new model(data).save(function(err, doc) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(doc);
+            }
+          });
+        });
+      };
+      let post = {title: 'Whip-por-will', content: `I got my window open in the southern cross hotel
+it's been my longest night I can tell
+by the way I'm not surprised
+to see the desert cover over paradise`}
+      createDocument(require('../api/post/postModel'), post)
+      .then(function (post) {
+	request(app)
+          .delete(`/api/posts/${post._id}`)
+	  .set('Accept', 'application/json')
+	  .expect(401, done)
+      });
+    });
+    it.skip('should delete a post', function(done) {
       request(app)
 	.post('/api/posts')
 	.send({title: "as soon as you're born they make you feel small",

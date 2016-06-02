@@ -38,3 +38,11 @@ exports.verify = function() {
       });
   };
 };
+
+exports.decodeToken = function() {
+  return function(req, res, next) {
+    if (!req.headers.authorization) {
+      res.status(401).send('Unauthorized')
+    };
+  };
+};
