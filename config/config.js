@@ -4,7 +4,8 @@ let config = {
   dev: 'development',
   test: 'testing',
   prod: 'production',
-  port: process.env.PORT || 8080
+  port: process.env.PORT || 8080,
+  tokenExpiration: 24 * 60 * 7
 }
 
 // use NODE_ENV, otherwise default to development

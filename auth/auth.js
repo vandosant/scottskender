@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../api/user/userModel');
+const expires = require('../config/config').tokenExpiration;
 
 exports.signToken = function(id) {
-  return jwt.sign({_id: id}, 'secret');
+  return jwt.sign({_id: id}, 'secret', {expiresIn: expires});
 }
 
 exports.verify = function() {
