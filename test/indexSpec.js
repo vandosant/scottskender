@@ -1,4 +1,4 @@
-let app = require('../index')
+let app = require('../server/server')
 let request = require('supertest')
 let expect = require('chai').expect
 let mongoose = require('mongoose')
@@ -136,7 +136,7 @@ describe('API', function() {
 	});
     });
     it('requires auth to delete a post', function(done) {
-      createDocument(require('../api/post/postModel'), {title: 'Whip-por-will',
+      createDocument(require('../server/api/post/postModel'), {title: 'Whip-por-will',
         content: `I got my window open in the southern cross hotel
 it's been my longest night I can tell
 by the way I'm not surprised
@@ -149,7 +149,7 @@ to see the desert cover over paradise`})
       });
     });
     it('requires a valid token to delete a post', function (done) {
-      createDocument(require('../api/post/postModel'), {
+      createDocument(require('../server/api/post/postModel'), {
         title: 'The Ocean Nerves',
         content: 'This place is trouble waiting, The light hangs so weakly on to the quiet, Drag myself in a long line'
       })
@@ -161,9 +161,9 @@ to see the desert cover over paradise`})
         })
     });
     it('should delete a post', function (done) {
-      createDocument(require('../api/user/userModel'), {username: 'jim james', password: 'yim yames'})
+      createDocument(require('../server/api/user/userModel'), {username: 'jim james', password: 'yim yames'})
         .then(function (user) {
-          createDocument(require('../api/post/postModel'), {
+          createDocument(require('../server/api/post/postModel'), {
             title: "as soon as you're born they make you feel small",
             content: "by giving you no time instead of it all",
             author: user._id
