@@ -12,6 +12,7 @@ describe('API', function() {
     return done();
   });
   describe('POSTS', function() {
+    const Post = require('../server/api/post/postModel');
     it('should get all posts', function(done) {
       request(app)
         .get('/api/posts')
@@ -136,7 +137,7 @@ describe('API', function() {
 	});
     });
     it('requires auth to delete a post', function(done) {
-      createDocument(require('../server/api/post/postModel'), {title: 'Whip-por-will',
+      createDocument(Post, {title: 'Whip-por-will',
         content: `I got my window open in the southern cross hotel
 it's been my longest night I can tell
 by the way I'm not surprised
@@ -149,7 +150,7 @@ to see the desert cover over paradise`})
       });
     });
     it('requires a valid token to delete a post', function (done) {
-      createDocument(require('../server/api/post/postModel'), {
+      createDocument(Post, {
         title: 'The Ocean Nerves',
         content: 'This place is trouble waiting, The light hangs so weakly on to the quiet, Drag myself in a long line'
       })
@@ -163,7 +164,7 @@ to see the desert cover over paradise`})
     it('should delete a post', function (done) {
       createDocument(require('../server/api/user/userModel'), {username: 'jim james', password: 'yim yames'})
         .then(function (user) {
-          createDocument(require('../server/api/post/postModel'), {
+          createDocument(Post, {
             title: "as soon as you're born they make you feel small",
             content: "by giving you no time instead of it all",
             author: user._id
