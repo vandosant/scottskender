@@ -55,75 +55,93 @@ describe('API', function() {
 	  done();
 	})
     });
-    it('should create a post', function(done) {
+    it('requires auth to create a post', function(done) {
       request(app)
-	.post('/api/posts')
-	.send({title: "don't let your silly dreams", content: 'fall in between the crack of the bed and the wall'})
-	.set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(201)
-	.end(function(err, res) {
-          expect(res.body).to.be.an('object');
-	  expect(res.body.title).to.equal("don't let your silly dreams");
-	  done();
-	});
+        .post(`/api/posts`)
+	.send({title: "Joe's Garage", content: `It wasn't very large
+There was just enough room to cram the drums
+In the corner over by the Dodge
+It was a fifty-four
+With a mashed up door
+And a cheesy little amp
+With a sign on the front said "Fender Champ"
+And a second hand guitar
+It was a Stratocaster with a whammy bar`})
+        .set('Accept', 'application/json')
+        .expect(401, done)
     });
-    it.skip('should have an author', function(done) {
-      request(app)
-	.post('/api/users')
-	.send({username: "samothrace", password: "12345678"})
-	.set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(200)
-	.end(function(err, res) {
-          if (err) {
-            console.log(err);
-	  }
-	  expect(err).to.be.null;
-	  const user = res.body;
-	  const userId = user._id;
-	  request(app)
-	    .post('/api/posts')
-	    .send({author: userId, title: 'cruel awake', content: 'LORDS THEN FALL, TAKINGS, LEFT TO FAIL, BROKEN PRAISE'})
-	    .set('Accept', 'application/json')
-	    .expect('Content-Type', /json/)
-	    .expect(200)
-	    .end(function(err, res) {
-	      if (err) {
-                console.log(err);
-	      }
-	      expect(err).to.be.null;
-	      const postId = res.body._id;
-              expect(res.body.author).to.be.equal(userId);
-	      request(app)
-                .get(`/api/posts/${postId}`)
-		.set('Accept', 'application/json')
-		.expect('Content-Type', /json/)
-		.expect(200)
-		.end(function(err, res) {
-                  if (err) {
-                    console.log(err)
-		  }
-		  expect(err).to.be.null;
-		  expect(res.body.author).to.be.an('object');
-		  expect(res.body.author._id).to.equal(userId);
-		  done();
-		});
+    it('requires a valid token to create a post', function (done) {
+       request(app)
+         .post('/api/posts')
+         .send({title: "Joe's Garage", content: `It wasn't very large
+           There was just enough room to cram the drums
+           In the corner over by the Dodge
+           It was a fifty-four
+           With a mashed up door
+           And a cheesy little amp
+           With a sign on the front said "Fender Champ"
+           And a second hand guitar
+           It was a Stratocaster with a whammy bar`})
+	 .set('Accept', 'application/json')
+         .set('Authorization', 'Bearer xyz')
+         .expect(401, done)
+    });
+    it('requires a valid user to create a post', function (done) {
+      createDocument(User, {username: 'frank zappa', password: 'dweezil'})
+        .then(function (user) {
+          request(app)
+            .post('/auth/signin')
+            .send({username: 'frank zappa', password: 'dweezil'})
+            .expect(200)
+            .end(function (err, res) {
+              User.remove({_id: user._id}, function(err, removed) {
+    	        request(app)
+    	          .post('/api/posts')
+                  .send({title: "Joe's Garage", content: `It wasn't very large
+There was just enough room to cram the drums
+In the corner over by the Dodge
+It was a fifty-four
+With a mashed up door
+And a cheesy little amp
+With a sign on the front said "Fender Champ"
+And a second hand guitar
+It was a Stratocaster with a whammy bar`})
+	          .set('Accept', 'application/json')
+    	          .set('Authorization', `Bearer ${res.body.token}`)
+    	          .expect(401, done)
+              })
 	    })
-	});
+        })
+    });
+    it('should create a post with an author', function(done) {
+      createDocument(User, {username: 'arlo guthrie', password: 'alice'})
+      .then(function (user) {
+	request(app)
+	  .post('/auth/signin')
+	  .send({username: 'arlo guthrie', password: 'alice'})
+	  .end(function(err, res) {
+            request(app)
+              .post('/api/posts')
+              .send({title: "don't let your silly dreams", content: 'fall in between the crack of the bed and the wall'})
+              .set('Accept', 'application/json')
+              .set('Authorization', `Bearer ${res.body.token}`)
+              .expect('Content-Type', /json/)
+              .expect(201)
+              .end(function(err, res) {
+                expect(res.body).to.be.an('object');
+                expect(res.body.title).to.equal("don't let your silly dreams");
+                expect(res.body.author).to.eql(user._id.toString());
+                done();
+	      });
+	  });
+      });
     });
     it('should update a post', function(done) {
-      request(app)
-	.post('/api/posts')
-	.send({title: "i should blame you now, but i never could somehow",
-		content: "for a miner's wife you weren't cut out to be"})
-	.set('Accept', 'application/json')
-	.expect('Content-Type', /json/)
-	.expect(201)
-	.end(function(err, res) {
-          const postId = res.body._id;
+      createDocument(Post, {title: "i should blame you now, but i never could somehow",
+	content: "for a miner's wife you weren't cut out to be"})
+	.then(function(post) {
 	  request(app)
-	    .put(`/api/posts/${postId}`)
+	    .put(`/api/posts/${post._id}`)
 	    .send({content: "a miner's wife you weren't cut out to be"})
             .set('Accept', 'application/json')
 	    .expect('Content-Type', /json/)

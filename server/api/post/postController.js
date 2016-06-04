@@ -8,13 +8,13 @@ exports.get = function (req, res) {
 };
 
 exports.create = function (req, res, next) {
-  postModel.create(req.body, function(err, newPost) {
-  if (err) {
+  postModel.create(Object.assign(req.body, {author: req.user._id}))
+  .then(function(newPost) {
+    res.json(newPost);
+  }, function(err) {
     console.error(err);
     next(err);
-  }
-    res.json(newPost);
-  }) 
+  });
 };
 
 exports.getOne = function (req, res, next) {

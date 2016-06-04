@@ -5,7 +5,7 @@ const auth = require('../../auth/auth')
 
 router.route('/')
   .get(controller.get)
-  .post(controller.create)
+  .post(auth.decodeToken(), auth.verifyUser(), controller.create)
 
 router.route('/:id')
   .get(controller.getOne)
