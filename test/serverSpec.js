@@ -13,6 +13,7 @@ describe('API', function() {
   });
   describe('POSTS', function() {
     const Post = require('../server/api/post/postModel');
+    const User = require('../server/api/user/userModel');
     it('should get all posts', function(done) {
       request(app)
         .get('/api/posts')
@@ -161,6 +162,30 @@ to see the desert cover over paradise`})
             .expect(401, done)
         })
     });
+    it('requires a valid user to delete a post', function (done) {
+      createDocument(require('../server/api/user/userModel'), {username: 'frank zappa', password: 'dweezil'})
+        .then(function (user) {
+          createDocument(Post, {
+            title: "I am the slime",
+            content: `I am gross and perverted. I'm obsessed 'n deranged. I have existed for years, but very little had changed. I am the tool of the Government and industry too, for I am destined to rule and regulate you. I may be vile and pernicious, but you can't look away. I make you think I'm delicious, with the stuff that I say. I am the best you can get. Have you guessed me yet?`,
+            author: user._id
+          })
+	    .then(function (post) {
+              request(app)
+                .post('/auth/signin')
+                .send({username: 'frank zappa', password: 'dweezil'})
+                .expect(200)
+                .end(function (err, res) {
+                  User.remove({_id: user._id}, function(err, removed) {
+		    request(app)
+		      .delete(`/api/posts/${post._id}`)
+		      .set('Authorization', `Bearer ${res.body.token}`)
+		      .expect(401, done)
+		  })
+		})
+	    })
+	})
+    })
     it('should delete a post', function (done) {
       createDocument(require('../server/api/user/userModel'), {username: 'jim james', password: 'yim yames'})
         .then(function (user) {

@@ -1,7 +1,7 @@
 let router = require('express').Router()
 let postModel = require('./postModel')
 let controller = require('./postController')
-const decodeToken = require('../../auth/auth').decodeToken
+const auth = require('../../auth/auth')
 
 router.route('/')
   .get(controller.get)
@@ -10,6 +10,6 @@ router.route('/')
 router.route('/:id')
   .get(controller.getOne)
   .put(controller.update)
-  .delete(decodeToken(), controller.delete)
+  .delete(auth.decodeToken(), auth.verifyUser(), controller.delete)
 
 module.exports = router

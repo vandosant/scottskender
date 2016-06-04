@@ -51,7 +51,24 @@ exports.decodeToken = function() {
         res.status(401).send('Unauthorized');
 	return
       }
+      req.user = decoded;
       next()
     })
   };
+};
+
+exports.verifyUser = function() {
+  return function(req, res, next) {
+    User.findById(req.user._id)
+      .then(function(user) {
+        if (!user) {
+          res.status(401).send('Unauthorized');
+	} else {
+          req.user = user;
+	  next();
+	}
+      }, function(err) {
+        next(err);
+      });
+  }
 };
