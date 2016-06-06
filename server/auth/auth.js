@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../api/user/userModel');
-const expires = require('../config/config').tokenExpiration;
+const config = require('../config/config');
 
 exports.signToken = function(id) {
-  return jwt.sign({_id: id}, 'secret', {expiresIn: expires});
+  return jwt.sign({_id: id}, config.jwtSecret, {expiresIn: config.tokenExpiration});
 }
 
 exports.verify = function() {
@@ -46,7 +46,7 @@ exports.decodeToken = function() {
       return;
     };
 
-    jwt.verify(req.headers.authorization.split(" ")[1], 'secret', function(err, decoded) {
+    jwt.verify(req.headers.authorization.split(" ")[1], config.jwtSecret, function(err, decoded) {
       if (err || !decoded) {
         res.status(401).send('Unauthorized');
 	return
