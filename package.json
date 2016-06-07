@@ -41,6 +41,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
+    "eslint": "^2.11.1",
     "supertest": "^1.2.0",
     "webpack": "^1.13.1"
   }
