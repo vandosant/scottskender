@@ -45,7 +45,6 @@ exports.decodeToken = function() {
       res.status(401).send('Unauthorized')
       return;
     };
-
     jwt.verify(req.headers.authorization.split(" ")[1], config.jwtSecret, function(err, decoded) {
       if (err || !decoded) {
         res.status(401).send('Unauthorized');

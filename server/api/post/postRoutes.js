@@ -9,7 +9,7 @@ router.route('/')
 
 router.route('/:id')
   .get(controller.getOne)
-  .put(controller.update)
+  .put(auth.decodeToken(), auth.verifyUser(), controller.update)
   .delete(auth.decodeToken(), auth.verifyUser(), controller.delete)
 
 module.exports = router
