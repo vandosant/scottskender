@@ -1,20 +1,14 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const Post = require('./postModel')
-const Title = require('./Title')
+const Landing = require('./Landing')
+const {Router, Route, hashHistory} = require('react-router')
 
-Post.load()
-.then(function(posts) {
-  const App = () => {
-    return (
-      <div>
-        <Title title='musings' color='#bf8415' />
-	{posts.map((post) => { return (
-				<div key={post._id} className='panel'>{post.title}</div> )
-			     } )}
-      </div>
-    )
-  }
+const App = () => {
+  return (
+    <Router history={hashHistory}>
+      <Route path='/' component={Landing} />
+    </Router>
+  )
+}
 
-  ReactDOM.render(<App />, document.getElementById('app'))
-})
+ReactDOM.render(<App />, document.getElementById('app'))

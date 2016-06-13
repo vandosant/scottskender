@@ -5,9 +5,9 @@ let Title = React.createClass({
     const style = {color: this.props.color}
     return (
       <div>
-        <h1 style={style}>
+        <div style={style} className='panel'>
           {this.props.title}
-	</h1>
+	</div>
       </div>
     )
   }

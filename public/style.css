@@ -7,6 +7,13 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+a {
+  text-decoration: none;
+  color: #bf8415;
+}
+a:hover {
+  color: #755213;
+}
 .mural {
   margin: 0;
   padding: 10% 0;
@@ -16,17 +23,26 @@ html {
   background-color: #0d0d0d;
   height: 880px;
 }
-
+.mural-orange {
+  background-color: #bf8415;
+}
+.mural-blue {
+  background-color: #013a45;
+}
+.mural-yellow {
+  background-color: #f2e088;
+}
 .text {
   position: relative;
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
   letter-spacing: 5px;
 }
-
+.text-small {
+  font-size: 70%;
+}
 .text-hero {
   position: absolute;
-  top: 30%;
   color: #222222;
   font-size: 15em;
   text-transform: uppercase;
@@ -36,6 +52,7 @@ html {
 }
 
 .text-hero-list {
+  font-family: 'PT Mono', Helvetica, sans-serif;
   list-style-type: none;
   display: inline-block;
   margin: 0;
@@ -44,7 +61,7 @@ html {
   color: #f2e088;
   font-size: 14px;
   opacity: .5;
-  line-height: 3.3em;
+  line-height: 4.3em;
 }
 
 .text-hero-list-center {
