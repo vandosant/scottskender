@@ -1,5 +1,6 @@
 const React = require('react')
 const Title = require('./Title')
+const { Link } = require('react-router')
 const { object } = React.PropTypes
 
 let Landing = React.createClass({
@@ -11,7 +12,9 @@ let Landing = React.createClass({
       <div>
         <Title title='Musings' color='#000' />
         {this.props.route.store.posts.map((post) => (
-	  <div className='panel' key={post._id}><a href='/'>{post.title}</a></div>
+	  <Link to={`/posts/${post.title.replace(/\s/g, '-')}`}>
+	    <div className='panel' key={post._id}>{post.title}</div>
+	  </Link>
         ))}
       </div>
     )
