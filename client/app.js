@@ -4,18 +4,16 @@ const Landing = require('./Landing')
 const {Router, Route, hashHistory} = require('react-router')
 const Posts = require('./postModel')
 
-const App = () => {
-  return (
-    <Router history={hashHistory}>
-      <Route path='/' component={Landing} />
-    </Router>
-  )
-}
-
 let store = Object.create(null)
-
 Posts.load()
 .then(function(posts) {
-  store = Object.assign(posts)
+  Object.assign(store, {posts: posts})
+  const App = () => {
+    return (
+      <Router history={hashHistory}>
+        <Route path='/' component={Landing} store={store} />
+      </Router>
+    )
+  }
   ReactDOM.render(<App store={store} />, document.getElementById('app'))
 })

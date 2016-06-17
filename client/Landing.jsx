@@ -1,14 +1,20 @@
 const React = require('react')
 const Title = require('./Title')
+const { object } = React.PropTypes
 
 let Landing = React.createClass({
+  propTypes: {
+    route: object
+  },
   render() {
-    <div>
-      <Title title='Musings' color='#000' />
-      {this.props.posts.map((post) => { return (
-	<div key={post._id} className='panel'><a href='#'>{post.title}</a></div> )
-      } )}
-    </div>
+    return (
+      <div>
+        <Title title='Musings' color='#000' />
+        {this.props.route.store.posts.map((post) => (
+	  <div className='panel' key={post._id}><a href='/'>{post.title}</a></div>
+        ))}
+      </div>
+    )
   }
 })
 
