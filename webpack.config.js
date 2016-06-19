@@ -2,10 +2,13 @@ const path = require('path')
 
 module.exports = {
   context: __dirname,
-  entry: './client/app.js',
+  entry: {
+    bundle: './client/app',
+    bundlepost: './client/postEntry'
+  },
   output: {
     path: path.join(__dirname, '/public'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/public/'
   },
   resolve: {
