@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   context: __dirname,
   entry: {
-    bundle: './client/app',
+    bundle: './client/browserEntry',
     bundlepost: './client/postEntry'
   },
   output: {
@@ -23,7 +23,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
 	loader: 'babel-loader',
-	include: path.join(__dirname, '/client')
+	include: [path.resolve(__dirname, 'client')]
       }
     ]
   }

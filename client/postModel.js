@@ -1,10 +1,18 @@
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 function load() {
-    return fetch('/api/posts')
+  return new Promise(function (resolve, reject) {
+    return fetch('http://localhost:8080/api/posts/')
     .then(function (res) {
         if (res.status === 200) {
-          return res.json();
+          resolve(res.json());
         }
     })
+    .catch(function (err) {
+      reject(err);
+    })
+  });
 };
 
 var api = {
