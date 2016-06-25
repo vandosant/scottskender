@@ -6,7 +6,7 @@ module.exports = function(app) {
   app.use('/posts', express.static('public'))
   
   app.get('/', (req, res) => {
-    res.sendFile(path.resolve(`${__dirname}/../index.html`)), function(err) {
+    res.sendFile(path.resolve(`${__dirname}/views/index.html`)), function(err) {
       if (err) {
         res.status(500)
         res.send(err)
@@ -15,7 +15,7 @@ module.exports = function(app) {
   })
   
   app.get('/posts/:id', (req, res) => {
-    res.sendFile(path.resolve(`${__dirname}/../post.html`)), function(err) {
+    res.sendFile(path.resolve(`${__dirname}/views/post.html`)), function(err) {
       if (err) {
         res.status(500)
         res.send(err)
