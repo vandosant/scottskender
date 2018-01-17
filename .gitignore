@@ -24,3 +24,5 @@ npm-debug.log
 public/bundle*
 .env
 .nvmrc
+server.enc.key
+server.key
