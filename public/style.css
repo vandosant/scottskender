@@ -11,9 +11,11 @@ a {
   text-decoration: none;
   color: #bf8415;
 }
+
 a:hover {
   color: #755213;
 }
+
 .mural {
   margin: 0;
   padding: 10% 0;
@@ -67,11 +69,27 @@ a:hover {
 .text-hero-list-center {
   margin-left: 12em;
   opacity: .3;
+  display: none;
 }
 
 .text-hero-list-right {
   margin-left: 6em;
   opacity: .2;
+  display: none;
+}
+
+@media (min-width: 60rem) {
+  .text-hero-list-center {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 85rem) {
+  .text-hero-list-center {
+  }
+  .text-hero-list-right {
+    display: inline-block;
+  }
 }
 
 /* Component Specific */

@@ -1,29 +1,29 @@
 const path = require('path')
+const HTMLPlugin = require('html-webpack-plugin')
 
 module.exports = {
   context: __dirname,
-  entry: {
-    bundle: './client/browserEntry',
-    bundlepost: './client/postEntry'
-  },
   output: {
-    path: path.join(__dirname, '/public'),
-    filename: '[name].js',
-    publicPath: '/public/'
+    path: __dirname + '/public',
+    filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js']
   },
   stats: {
     colors: true,
     reasons: true
   },
+  plugins: [
+    new HTMLPlugin({
+      template: './src/index.html'
+    })
+  ],
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-	loader: 'babel-loader',
-	include: [path.resolve(__dirname, 'client')]
+      	loader: 'babel-loader'
       }
     ]
   }
